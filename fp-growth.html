@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FP-Growth Algorithm</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e2a38, #243b55);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-around;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px 0;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      color: white;
+      text-decoration: underline;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-bar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      background-color: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 25px;
+      line-height: 1.8;
+    }
+
+    .content h2 {
+      margin-top: 0;
+    }
+
+    .content ul {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="nav-bar">
+      <a href="index.html">Home</a>
+      <a href="apriori.html">Apriori</a>
+      <a href="fp-growth.html">Fp-Growth</a>
+      <a href="comparison.html">Comparison metrics</a>
+    </div>
+
+    <h1>FP-Growth Algorithm Overview</h1>
+
+    <div class="content">
+      <h2>What is FP-Growth?</h2>
+      <p>
+        The FP-Growth (Frequent Pattern Growth) algorithm is a more efficient data mining technique for discovering frequent itemsets than Apriori. It does so by constructing a compressed version of the dataset called an FP-tree and then using this tree structure to find frequent itemsets.
+      </p>
+
+      <h3>How It Works</h3>
+      <p>
+        <strong>FP-Tree Construction:</strong> Instead of generating candidate itemsets like Apriori, FP-Growth builds a compact data structure called an FP-tree. The FP-tree represents the dataset in a compressed form, making it easier to mine frequent itemsets.
+      </p>
+      <p>
+        <strong>Pattern Mining:</strong> After constructing the FP-tree, the algorithm recursively mines the frequent itemsets using a divide-and-conquer approach. It grows frequent patterns by exploring subsets of the FP-tree.
+      </p>
+
+      <h3>Key Metrics Used</h3>
+      <p>
+        Similar to Apriori, FP-Growth uses the same metrics to evaluate frequent itemsets:
+      </p>
+      <ul>
+        <li><strong>Support:</strong> The percentage of transactions that contain the itemset.</li>
+        <li><strong>Confidence:</strong> The likelihood that an item is purchased when another item is already in the cart.</li>
+        <li><strong>Lift:</strong> The strength of the rule compared to random chance.</li>
+      </ul>
+
+      <h3>Example</h3>
+      <p>
+        If a store finds that:
+      </p>
+      <ul>
+        <li>60% of customers who buy coffee also buy sugar (high confidence),</li>
+        <li>And coffee and sugar are often bought together in 40% of transactions (high support),</li>
+      </ul>
+      <p>
+        The FP-Growth algorithm can generate the rule:
+      </p>
+      <pre>{Coffee} → {Sugar}</pre>
+      <p>
+        This rule can lead to optimized product placements, promotions, and bundled offers.
+      </p>
+
+      <h3>Applications</h3>
+      <ul>
+        <li><strong>Retail:</strong> Discovering product association rules in customer transactions.</li>
+        <li><strong>E-commerce:</strong> Recommending products based on frequent purchase patterns.</li>
+        <li><strong>Marketing:</strong> Creating targeted marketing strategies for related products.</li>
+      </ul>
+
+      <h3>Advantages</h3>
+      <ul>
+        <li>More efficient than Apriori in terms of time complexity, especially with large datasets.</li>
+        <li>Does not generate candidate itemsets, making it memory efficient.</li>
+        <li>Faster for finding frequent itemsets in large transaction databases.</li>
+      </ul>
+
+      <h3>Disadvantages</h3>
+      <ul>
+        <li>Can be computationally expensive for extremely sparse datasets.</li>
+        <li>Requires substantial memory for storing the FP-tree structure.</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

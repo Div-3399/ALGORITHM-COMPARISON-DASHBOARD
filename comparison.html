@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Comparison Metrics - Apriori vs. FP-Growth</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e2a38, #243b55);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-evenly;
+            padding: 15px 0;
+        }
+
+        .nav-bar a {
+            display: inline;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            justify-content: space-evenly;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .nav-bar a:hover {
+            border-bottom: 2px solid white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 1.5em;
+            text-decoration: underline;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .container p, .container h2, .container h3 {
+            color: white;
+        }
+
+        /* Add some hover effect to the nav links */
+        .nav-bar a:hover {
+            color: #7b6dff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="apriori.html">Apriori</a>
+            <a href="fp-growth.html">FP-Growth</a>
+            <a href="comparison.html">Comparison Metrics</a>
+        </div>
+
+        <h1>Comparison Metrics for Apriori vs. FP-Growth</h1>
+        <p>When evaluating Apriori and FP-Growth, the following performance metrics are important for understanding their strengths and weaknesses:</p>
+
+        <h2>1. Execution Time</h2>
+        <p><strong>Apriori:</strong> Execution time increases significantly as the size of the dataset grows. This is due to its bottom-up approach, where it generates candidate itemsets and prunes them over multiple iterations, making it slower for large datasets.</p>
+        <p><strong>FP-Growth:</strong> FP-Growth is faster, particularly for large datasets. By constructing a compact FP-Tree, it avoids generating candidate itemsets, reducing the computational complexity and improving execution time.</p>
+
+        <h2>2. Memory Usage</h2>
+        <p><strong>Apriori:</strong> As it generates candidate itemsets at each iteration, Apriori tends to use more memory, especially with larger datasets. This can lead to high memory consumption when dealing with many possible combinations.</p>
+        <p><strong>FP-Growth:</strong> FP-Growth uses memory more efficiently. It stores frequent itemsets in a compact FP-Tree, which significantly reduces the amount of memory needed compared to Apriori, especially for larger datasets.</p>
+
+        <h2>3. Pattern Quality</h2>
+        <p><strong>Apriori:</strong> While Apriori is straightforward and generates many itemsets, it can sometimes result in less relevant patterns. This happens because it generates a broad set of itemsets and rules, some of which may not be useful.</p>
+        <p><strong>FP-Growth:</strong> FP-Growth typically produces higher-quality patterns. Since it focuses on frequent itemsets directly through its FP-Tree structure, it tends to generate more relevant and meaningful patterns for analysis.</p>
+
+        <h2>4. Scalability</h2>
+        <p><strong>Apriori:</strong> Apriori struggles with scalability, particularly as the dataset size increases. The need for multiple passes through the data and the generation of candidate itemsets makes it computationally expensive for large transaction databases.</p>
+        <p><strong>FP-Growth:</strong> FP-Growth has better scalability. Its efficient use of the FP-Tree allows it to handle larger datasets without a significant decrease in performance. It remains more efficient as the dataset grows.</p>
+
+        <h3>Summary</h3>
+        <p>These metrics provide a clear overview of the trade-offs between Apriori and FP-Growth. While Apriori is easier to understand and implement, FP-Growth generally performs better in terms of execution time, memory usage, pattern quality, and scalability, making it more suitable for large datasets.</p>
+    </div>
+</body>
+</html>

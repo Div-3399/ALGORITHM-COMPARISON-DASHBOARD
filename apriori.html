@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Apriori Algorithm</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .body {
+      background: linear-gradient(135deg, #1e2a38, #243b55);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-around;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px 0;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .nav-bar a {
+      flex: 1;
+      text-align: center;
+      padding: 12px 0;
+      color: white;
+      text-decoration: underline;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .nav-bar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      background-color: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 25px;
+      line-height: 1.8;
+    }
+
+    .content h2 {
+      margin-top: 0;
+    }
+
+    .content ul {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="nav-bar">
+      <a href="index.html">Home</a>
+      <a href="apriori.html">Apriori</a>
+      <a href="fp-growth.html">Fp-Growth</a>
+      <a href="comparison.html">Comparison metrics</a>
+    </div>
+
+    <h1>Apriori Algorithm Overview</h1>
+
+    <div class="content">
+      <h2>What is Apriori?</h2>
+      <p>
+        The Apriori algorithm is a data mining technique used to identify frequent itemsets and generate association rules from large datasets. It is most commonly used in <strong>Market Basket Analysis</strong> to uncover patterns in consumer purchasing behavior.
+      </p>
+
+      <h3>How It Works</h3>
+      <p>
+        <strong>Frequent Itemsets:</strong> The algorithm identifies sets of items that frequently occur together in transactions. It does this by using a bottom-up approach where it first looks at single items, then pairs of items, triples, and so on, pruning infrequent itemsets at each step.
+      </p>
+      <p>
+        <strong>Association Rules:</strong> It generates rules that show how the occurrence of one item is associated with the occurrence of another. The strength of these associations is evaluated using:
+      </p>
+      <ul>
+        <li><strong>Support:</strong> The percentage of transactions that contain the itemset.</li>
+        <li><strong>Confidence:</strong> The likelihood that an item is purchased when another item is already in the cart.</li>
+        <li><strong>Lift:</strong> The strength of the rule compared to random chance.</li>
+      </ul>
+
+      <h3>Example</h3>
+      <p>
+        If a supermarket finds that:
+      </p>
+      <ul>
+        <li>40% of customers who buy bread also buy butter (high confidence),</li>
+        <li>And bread and butter are often bought together in 30% of transactions (high support),</li>
+      </ul>
+      <p>
+        The algorithm can generate the rule:
+      </p>
+      <pre>{Bread} → {Butter}</pre>
+      <p>
+        This insight can lead to better product placement, bundling offers, or cross-selling strategies.
+      </p>
+      <h2>Key Characteristics:</h2>
+      <ul>
+        <li>Uses support, confidence, and lift metrics</li>
+        <li>Simple and easy to implement</li>
+        <li>May generate large candidate sets (memory-intensive)</li>
+        <li>Works well on smaller datasets</li>
+      </ul>
+
+      <h3>Applications</h3>
+      <ul>
+        <li><strong>Retail:</strong> Understanding consumer buying behavior and optimizing product recommendations.</li>
+        <li><strong>E-commerce:</strong> Recommending products based on frequent purchase patterns.</li>
+        <li><strong>Marketing:</strong> Designing promotional campaigns targeting related products.</li>
+      </ul>
+
+      <h3>Advantages</h3>
+      <ul>
+        <li>Simple and intuitive to understand.</li>
+        <li>Easy to implement for small-to-medium datasets.</li>
+        <li>Provides actionable insights for business strategies.</li>
+      </ul>
+
+      <h3>Disadvantages</h3>
+      <ul>
+        <li>Can be computationally expensive for very large datasets (due to many possible combinations).</li>
+        <li>High memory usage when working with large transaction databases.</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
