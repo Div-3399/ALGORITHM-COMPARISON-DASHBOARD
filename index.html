@@ -3,131 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <title>Vertical Chart Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <head>
-    <link rel="stylesheet" href="style.css">
-  </head>
+  <script src="/static/script.js"></script> <!-- Correct path to static JS -->
+  <link rel="stylesheet" href="style.css"> <!-- Correct path to static CSS -->
+</head>
 <body>
-  
+    <h1>INSIGHT IQ</h1>
   <div class="container">
     <div class="nav-bar">
-      
-        <a href="index.html">Home</a>
-        <a href="apriori.html">Apriori</a>
-        <a href="fp-growth.html">Comparison metrics</a>
-        <a href="comparison.html">Fp-growth</a>
-      
+        <a href="/">Home</a>
+        <a href="/apriori.html">Apriori</a>
+        <a href="/fp-growth.html">FP-Growth</a>
+        <a href="/comparison.html">Comparison Metrics</a>
+    </div>
+
+    <div class="title-container">
+        <h2>Algorithm comparison dashboard</h2>
+        <p class="title-description">
+          Welcome to the Algorithm Comparison Dashboard, a platform designed to help you compare the performance of two popular data mining algorithms: 
+          <strong>Apriori</strong> and <strong>FP-Growth</strong>. These algorithms are widely used for discovering frequent itemsets and generating association rules from datasets.
+          <br /><br />
+          Upload your dataset, analyze key performance metrics such as execution time, memory usage, and pattern quality, and visualize the results. 
+          Use the dashboard to understand how each algorithm performs on your data and make an informed choice based on scalability and efficiency.
+        </p>
       </div>
-    <h1>Algorithm Comparison</h1>
 
     <div class="upload-box">
       <label class="upload-label">
-        Upload CSV
+        Upload CSV:
         <input type="file" id="csvFile" accept=".csv" />
       </label>
     </div>
 
-    <div class="algo-buttons">
-      <button onclick="updateCharts('apriori')">Apriori</button>
-      <button onclick="updateCharts('fpgrowth')">FPGrowth</button>
-    </div>
+    <div id="loading" style="display: none;">Processing...⏳</div>
 
-    <div class="charts">
-     <h2>Execution time</h2> <canvas id="executionChart"></canvas>
-     <h2>Memory usage</h2><canvas id="memoryChart"></canvas>
-     <h2>Pattern quality</h2><canvas id="patternChart"></canvas>
-     <h2>Scalability</h2><canvas id="scalabilityChart"></canvas>
+    <div id="metrics" style="margin-top: 30px;"></div>
+
+    <div class="charts" id="charts">
+      <!-- Dynamic charts will be injected here -->
     </div>
   </div>
 
   <script>
-    const dataSet = {
-      apriori: {
-        execution: [2.1],
-        memory: [500],
-        pattern: [0.67],
-        scalability: [20, 40, 70, 130, 180],
-      },
-      fpgrowth: {
-        execution: [1.5],
-        memory: [400],
-        pattern: [0.82],
-        scalability: [30, 60, 90, 180, 220],
-      },
-      sizes: ['1k', '5k', '10k', '25k', '50k'],
-    };
-
-    const execChart = new Chart(document.getElementById("executionChart"), {
-      type: "bar",
-      data: {
-        labels: ["Execution Time (sec)"],
-        datasets: [
-          { label: "Apriori", data: dataSet.apriori.execution, backgroundColor: "#a06af9" },
-          { label: "FPGrowth", data: dataSet.fpgrowth.execution, backgroundColor: "#46d4c5" }
-        ]
-      },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-    });
-
-    const memChart = new Chart(document.getElementById("memoryChart"), {
-      type: "bar",
-      data: {
-        labels: ["Memory Usage (MB)"],
-        datasets: [
-          { label: "Apriori", data: dataSet.apriori.memory, backgroundColor: "#a06af9" },
-          { label: "FPGrowth", data: dataSet.fpgrowth.memory, backgroundColor: "#46d4c5" }
-        ]
-      },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-    });
-
-    const patternChart = new Chart(document.getElementById("patternChart"), {
-      type: "bar",
-      data: {
-        labels: ["Pattern Quality"],
-        datasets: [
-          { label: "Apriori", data: dataSet.apriori.pattern, backgroundColor: "#a06af9" },
-          { label: "FPGrowth", data: dataSet.fpgrowth.pattern, backgroundColor: "#46d4c5" }
-        ]
-      },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } }, scales: { y: { max: 1 } } }
-    });
-
-    const scaleChart = new Chart(document.getElementById("scalabilityChart"), {
-      type: "line",
-      data: {
-        labels: dataSet.sizes,
-        datasets: [
-          {
-            label: "Apriori",
-            data: dataSet.apriori.scalability,
-            borderColor: "#a06af9",
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: "FPGrowth",
-            data: dataSet.fpgrowth.scalability,
-            borderColor: "#46d4c5",
-            fill: false,
-            tension: 0.3
-          }
-        ]
-      },
-      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
-    });
-
-    function updateCharts(algorithm) {
-      alert(`Showing ${algorithm.toUpperCase()} metrics`);
-    }
-
     document.getElementById('csvFile').addEventListener('change', function () {
-      const file = this.files[0];
-      if (file) {
-        alert(`File "${file.name}" uploaded. (Currently simulating values)`);
-        // Hook actual CSV parsing logic here
-      }
+        const file = this.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+    
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('metrics').innerHTML = '';
+            document.getElementById('charts').innerHTML = '';
+    
+            fetch('http://127.0.0.1:8000/upload/', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+    
+                if (data.error) {
+                    alert("Error: " + data.error);
+                    return;
+                }
+    
+                const metrics = data.metrics;
+                const metricsContainer = document.getElementById('metrics');
+                metricsContainer.innerHTML = `
+                    <h2>Metrics</h2>
+                    <ul>
+                        <li><strong>Execution Time (s):</strong> ${metrics["Execution Time (s)"].join(" vs ")}</li>
+                        <li><strong>Memory Usage (MB):</strong> ${metrics["Memory Usage (MB)"].join(" vs ")}</li>
+                        <li><strong>Pattern Quality (Unique patterns):</strong> ${metrics["Pattern Quality (unique patterns)"].join(" vs ")}</li>
+                    </ul>
+                    <div style="text-align: center;">
+                        <button id="downloadMetrics" class="download-btn" style="margin-top: 20px;">Download Metrics</button>
+                    </div>
+                `;
+
+                // Download button functionality
+                document.getElementById('downloadMetrics').addEventListener('click', function () {
+                    const metricsText = `Execution Time (s): ${metrics["Execution Time (s)"].join(" vs ")}
+    Memory Usage (MB): ${metrics["Memory Usage (MB)"].join(" vs ")}
+    Pattern Quality (Unique patterns): ${metrics["Pattern Quality (unique patterns)"].join(" vs ")}
+                    `.trim();
+    
+                    const blob = new Blob([metricsText], { type: 'text/plain' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'metrics.txt';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+    
+                // Display charts with titles
+                const chartsContainer = document.getElementById('charts');
+                const chartTitles = [
+                    "Execution Time (s)",
+                    "Memory Usage (MB)",
+                    "Pattern Quality (Unique Patterns)",
+                    "Scalability: Execution Time vs Dataset Size"
+                ];
+    
+                data.images.forEach((imageData, index) => {
+                    const imgCard = document.createElement('div');
+                    imgCard.classList.add('chart-card');
+    
+                    // Add title
+                    const title = document.createElement('h3');
+                    title.innerText = chartTitles[index];
+                    title.style.marginBottom = "10px";
+                    imgCard.appendChild(title);
+    
+                    // Add image
+                    const img = document.createElement('img');
+                    img.src = `data:image/png;base64,${imageData}`;
+                    imgCard.appendChild(img);
+    
+                    chartsContainer.appendChild(imgCard);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Error: " + error.message);
+            });
+        }
     });
-  </script>
+    </script>
 </body>
 </html>
+
+
