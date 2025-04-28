@@ -9,16 +9,16 @@ body {
 h1{
   text-align: center;
   font-family: 'Arial', sans-serif; 
-  font-size: 4em; /* Large size for prominence */
-  color: #ecf0f1; /* Light text color */
-  font-family: 'Roboto', sans-serif; /* Modern font */
-  letter-spacing: 3px; /* Slight spacing between letters */
-  font-weight: bold; /* Bold for emphasis */
-  text-transform: uppercase; /* Uppercase for a strong look */
-  margin: 0; /* Remove any default margin */
-  padding: 0; /* Remove padding */
+  font-size: 4em;
+  color: #ecf0f1;
+  font-family: 'Roboto', sans-serif; 
+  letter-spacing: 3px; 
+  font-weight: bold; 
+  text-transform: uppercase; 
+  margin: 0; 
+  padding: 0; 
   background: linear-gradient(135deg, #ff7f50, #00bcd4); /* Gradient effect */
-  -webkit-background-clip: text; /* Apply gradient to text */
+  background-clip: text; /* Apply gradient to text */
   color: transparent; /* Make text color transparent to show gradient */
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow for text */
   letter-spacing: 5px; /* Add spacing for a more modern feel */
